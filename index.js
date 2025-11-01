@@ -50,3 +50,4 @@ console.log(Inventory.db);
 //console.log(Inventory.getElectonicsCount());
 Inventory.removeItem("The Great Gatsby");
 console.log(Inventory.db);
+//added some changes
