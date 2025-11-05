@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Manager</title>
+  <style>
+    /* ---------- GLOBAL STYLES ---------- */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      border-radius: 14px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      text-align: center;
+      color: #232f3e;
+      margin-bottom: 30px;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+        /* ---------- LOGOUT BUTTON ---------- */
+    #logoutBtn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #ff9900;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    #logoutBtn:hover {
+      background-color: #f90;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+
+    /* ---------- ADD ITEM SECTION ---------- */
+    .add-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+
+    input, select {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: #ff9900;
+      box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
+    }
+
+    button {
+      background-color: #ff9900;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #f90;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ---------- ITEM GRID ---------- */
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .item-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .item-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .item-info h4 {
+      margin: 0;
+      font-size: 17px;
+      color: #111;
+    }
+
+    .item-info p {
+      margin: 6px 0 14px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .delete-btn {
+      align-self: flex-end;
+      background-color: #d32f2f;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .delete-btn:hover {
+      background-color: #b71c1c;
+    }
+
+    .no-items {
+      text-align: center;
+      color: #777;
+      font-size: 16px;
+      padding: 40px;
+    }
+
+    /* ---------- CATEGORY MODAL ---------- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #232f3e;
+    }
+
+    #categoryList {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 15px;
+    }
+
+    #categoryList li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8f8f8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    #categoryList button {
+      background-color: #d32f2f;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    #categoryList button:hover {
+      background-color: #b71c1c;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    #newCategoryInput {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body onload="CheckLogin()">
+  <div class="container">
+    <button id="logoutBtn" onclick="logout()">Logout</button>
+    <h2>📦 Inventory Manager</h2>
+
+    <!-- Add New Product -->
+    <div class="add-section">
+      <input type="text" id="nameInput" placeholder="Enter product name">
+      <select id="categoryInput"></select>
+      <button id="addBtn">+ Add Item</button>
+      <button id="editCategoriesBtn">⚙️ Edit Categories</button>
+    </div>
+
+    <!-- Items Display -->
+    <div id="itemsContainer" class="items-grid"></div>
+  </div>
+
+  <!-- Category Edit Modal -->
+  <div id="categoryModal" class="modal">
+    <div class="modal-content">
+      <h3>Manage Categories</h3>
+      <ul id="categoryList"></ul>
+      <input type="text" id="newCategoryInput" placeholder="New category name">
+      <div class="modal-actions">
+        <button id="addCategoryBtn">Add Category</button>
+        <button id="closeModalBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="inventory.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

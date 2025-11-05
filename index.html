@@ -3,18 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Login | Inventory Manager</title>
+  <style>
+    /* ---------- GLOBAL STYLES ---------- */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ---------- LOGIN CONTAINER ---------- */
+    .login-container {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 40px 50px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      color: #232f3e;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 25px;
+      color: #232f3e;
+      letter-spacing: 0.3px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: #ff9900;
+      box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
+    }
+
+    button {
+      width: 100%;
+      background-color: #ff9900;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #f90;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .msg {
+      margin-top: 15px;
+      color: #d32f2f;
+      font-size: 14px;
+      height: 18px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .footer a {
+      color: #ff9900;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <div id="container"> 
-    <h3>This is a simple html</h3>
-    <input id="txtFld" type="text" placeholder="Type something here">
-    <button id="btn">Add item</button>
-    <button id="clearBtn">Clear items</button>
-    <button id="RmvBtn">Remove last item</button>
-    
 
+  <div class="login-container">
+
+
+
+    <h2>🔐 Login to Inventory</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <p class="msg" id="msg"></p>
+
+    <div class="footer">
+      <p>New here? <a href="#" id="registerBtn">Create Account</a></p>
+    </div>
   </div>
-  <script src="test.js"></script>
+
+  <script src="auth.js"></script>
+  
 </body>
 </html>
